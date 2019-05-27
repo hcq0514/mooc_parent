@@ -16,11 +16,12 @@ public class CmsPageController implements CmsPageControllerApi {
 
     @Autowired
     PageService pageService;
+
     @Override
     @GetMapping("/list/{page}/{size}")
     public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size")
             int size, QueryPageRequest queryPageRequest) {
-        return pageService.findList(page,size,queryPageRequest);
+        return pageService.findList(page, size, queryPageRequest);
     }
 
 }

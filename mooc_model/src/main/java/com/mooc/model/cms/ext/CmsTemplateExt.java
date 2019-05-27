@@ -2,6 +2,7 @@ package com.mooc.model.cms.ext;
 
 import com.mooc.model.cms.CmsTemplate;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -10,6 +11,7 @@ import lombok.ToString;
  * @Date:Created in 2018/1/24 10:04.
  * @Modified By:
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 public class CmsTemplateExt extends CmsTemplate {

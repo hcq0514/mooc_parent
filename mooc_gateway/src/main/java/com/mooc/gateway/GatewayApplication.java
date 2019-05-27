@@ -1,15 +1,18 @@
-package com.cms.manager;
+package com.mooc.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 
 @SpringBootApplication
-@EnableSwagger2
 @EnableEurekaClient
-public class CmsManagerApplication {
+public class GatewayApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(CmsManagerApplication.class);
+        SpringApplication.run(GatewayApplication.class);
     }
+
+
+
 }

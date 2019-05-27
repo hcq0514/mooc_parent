@@ -2,8 +2,12 @@ server:
   port: 6060
 spring:
   application:
-    name: manager-cms
+    name: manager-cms-service
   data:
     mongodb:
       uri: mongodb://47.100.97.46:27017
       database: mooc
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:6000/eureka/

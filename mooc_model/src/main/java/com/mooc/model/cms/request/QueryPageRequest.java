@@ -4,7 +4,9 @@ import com.mooc.common.model.request.RequestData;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class QueryPageRequest extends RequestData {
     @ApiModelProperty("站点id")
