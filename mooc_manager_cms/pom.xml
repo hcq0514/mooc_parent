@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mooc_cms_manager</artifactId>
+    <artifactId>mooc_manager_cms</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.mooc</groupId>
