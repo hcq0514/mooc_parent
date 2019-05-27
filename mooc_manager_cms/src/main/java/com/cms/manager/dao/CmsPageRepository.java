@@ -37,4 +37,12 @@ public interface CmsPageRepository extends MongoRepository<CmsPage,String> {
      */
     Page<CmsPage> findBySiteIdAndPageType(String siteId, String pageType, Pageable pageable);
 
+
+    Page<CmsPage> findByPageAliaseLikeAndSiteId(String pageAliase,String siteId, Pageable pageable);
+
+
+
+
+
+
 }
