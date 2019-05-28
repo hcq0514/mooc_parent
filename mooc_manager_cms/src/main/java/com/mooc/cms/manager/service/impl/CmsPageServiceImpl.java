@@ -70,7 +70,7 @@ public class CmsPageServiceImpl implements CmsPageService {
         CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
         //如果已存在，则抛错
         if (cmsPage1 != null) {
-            ExceptionCast.cast(CmsCode.CMS_ADD_PAGE_EXIST);
+            ExceptionCast.cast(CmsCode.CMS_PAGE_ADD_ALREADY_EXIST);
         }
         cmsPage.setPageCreateTime(new Date());
         CmsPage save = cmsPageRepository.save(cmsPage);
@@ -81,7 +81,7 @@ public class CmsPageServiceImpl implements CmsPageService {
     public CmsPageResult updatePage(CmsPage cmsPage) {
         Optional<CmsPage> byId = cmsPageRepository.findById(cmsPage.getPageId());
         if (!byId.isPresent()) {
-            return new CmsPageResult(CommonCode.FAIL, null);
+            ExceptionCast.cast(CmsCode.CMS_PAGE_UPDATE_NOT_EXIST);
         }
         CmsPage update = cmsPageRepository.save(cmsPage);
         return new CmsPageResult(CommonCode.SUCCESS, update);

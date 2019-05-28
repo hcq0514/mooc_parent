@@ -2,10 +2,12 @@ package com.mooc.cms.manager.service.impl;
 
 import com.mooc.cms.manager.dao.CmsTemplateRepository;
 import com.mooc.cms.manager.service.CmsTemplateService;
+import com.mooc.common.exception.ExceptionCast;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
 import com.mooc.model.cms.CmsTemplate;
+import com.mooc.model.cms.response.CmsCode;
 import com.mooc.model.cms.response.CmsResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +35,10 @@ public class CmsTemplateServiceImpl implements CmsTemplateService {
 
     @Override
     public CmsResult<CmsTemplate> add(CmsTemplate cmsTemplate) {
-        CmsTemplate CmsTemplate1 = cmsTemplateRepository.findBySiteIdAndTemplateName(cmsTemplate.getSiteId(), cmsTemplate.getTemplateName());
+        CmsTemplate exist = cmsTemplateRepository.findBySiteIdAndTemplateName(cmsTemplate.getSiteId(), cmsTemplate.getTemplateName());
         //如果已存在，则抛错
-        if (CmsTemplate1 != null) {
-            return new CmsResult<>(CommonCode.FAIL, null);
+        if (exist != null) {
+            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_ADD_ALREADY_EXIST);
         }
         CmsTemplate save = cmsTemplateRepository.save(cmsTemplate);
         return new CmsResult<>(CommonCode.SUCCESS, save);
@@ -44,9 +46,9 @@ public class CmsTemplateServiceImpl implements CmsTemplateService {
 
     @Override
     public CmsResult<CmsTemplate> update(CmsTemplate cmsTemplate) {
-        Optional<CmsTemplate> byId = cmsTemplateRepository.findById(cmsTemplate.getTemplateId());
-        if (!byId.isPresent()) {
-            return new CmsResult<>(CommonCode.FAIL, null);
+        Optional<CmsTemplate> exist = cmsTemplateRepository.findById(cmsTemplate.getTemplateId());
+        if (!exist.isPresent()) {
+            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_UPDATE_NOT_EXIST);
         }
         CmsTemplate update = cmsTemplateRepository.save(cmsTemplate);
         return new CmsResult<>(CommonCode.SUCCESS, update);
