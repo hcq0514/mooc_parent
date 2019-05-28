@@ -1,6 +1,6 @@
-package com.cms.manager.controller;
+package com.mooc.cms.manager.controller;
 
-import com.cms.manager.service.CmsTemplateService;
+import com.mooc.cms.manager.service.CmsTemplateService;
 import com.mooc.api.cms.CmsTemplateControllerApi;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsTemplate;

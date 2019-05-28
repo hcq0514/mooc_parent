@@ -1,4 +1,4 @@
-package com.cms.manager.service;
+package com.mooc.cms.manager.service;
 
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsPage;

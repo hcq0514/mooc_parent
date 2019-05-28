@@ -1,7 +1,7 @@
-package com.cms.manager.service.impl;
+package com.mooc.cms.manager.service.impl;
 
-import com.cms.manager.dao.CmsSiteRepository;
-import com.cms.manager.service.CmsSiteService;
+import com.mooc.cms.manager.dao.CmsSiteRepository;
+import com.mooc.cms.manager.service.CmsSiteService;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;

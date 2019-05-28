@@ -1,4 +1,4 @@
-package com.cms.manager.dao;
+package com.mooc.cms.manager.dao;
 
 import com.mooc.model.cms.CmsSite;
 import com.mooc.model.cms.CmsTemplate;

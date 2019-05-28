@@ -1,14 +1,9 @@
-package com.cms.manager.controller;
+package com.mooc.cms.manager.controller;
 
-import com.cms.manager.service.CmsSiteService;
-import com.cms.manager.service.impl.CmsPageServiceImpl;
-import com.mooc.api.cms.CmsPageControllerApi;
+import com.mooc.cms.manager.service.CmsSiteService;
 import com.mooc.api.cms.CmsSiteControllerApi;
 import com.mooc.common.model.response.QueryResponseResult;
-import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsSite;
-import com.mooc.model.cms.request.QueryPageRequest;
-import com.mooc.model.cms.response.CmsPageResult;
 import com.mooc.model.cms.response.CmsResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

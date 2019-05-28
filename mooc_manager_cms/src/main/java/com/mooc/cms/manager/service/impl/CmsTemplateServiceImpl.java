@@ -1,11 +1,10 @@
-package com.cms.manager.service.impl;
+package com.mooc.cms.manager.service.impl;
 
-import com.cms.manager.dao.CmsTemplateRepository;
-import com.cms.manager.service.CmsTemplateService;
+import com.mooc.cms.manager.dao.CmsTemplateRepository;
+import com.mooc.cms.manager.service.CmsTemplateService;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
-import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.response.CmsResult;
 import org.springframework.beans.factory.annotation.Autowired;
