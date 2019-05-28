@@ -1,6 +1,6 @@
 package com.cms.manager.controller;
 
-import com.cms.manager.service.PageService;
+import com.cms.manager.service.impl.CmsPageServiceImpl;
 import com.mooc.api.cms.CmsPageControllerApi;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsPage;
@@ -14,25 +14,25 @@ import org.springframework.web.bind.annotation.*;
 public class CmsPageController implements CmsPageControllerApi {
 
     @Autowired
-    PageService pageService;
+    CmsPageServiceImpl cmsPageServiceImpl;
 
     @Override
     @GetMapping("/list/{page}/{size}")
     public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size")
             int size, QueryPageRequest queryPageRequest) {
-        return pageService.findList(page, size, queryPageRequest);
+        return cmsPageServiceImpl.findList(page, size, queryPageRequest);
     }
 
     @Override
     @PostMapping("/add")
     public CmsPageResult addPage(@RequestBody CmsPage cmsPage) {
-        return pageService.addPage(cmsPage);
+        return cmsPageServiceImpl.addPage(cmsPage);
     }
 
     @Override
     @PutMapping("/update")
     public CmsPageResult updatePage(@RequestBody CmsPage cmsPage) {
-        return pageService.updatePage(cmsPage);
+        return cmsPageServiceImpl.updatePage(cmsPage);
     }
 
 }

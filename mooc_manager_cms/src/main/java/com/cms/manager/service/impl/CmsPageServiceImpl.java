@@ -1,6 +1,7 @@
-package com.cms.manager.service;
+package com.cms.manager.service.impl;
 
 import com.cms.manager.dao.CmsPageRepository;
+import com.cms.manager.service.CmsPageService;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
@@ -16,8 +17,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * @author : hcq
+ * @date : 2019/5/28
+ */
 @Service
-public class PageService {
+public class CmsPageServiceImpl implements CmsPageService {
     @Autowired
     CmsPageRepository cmsPageRepository;
 
@@ -32,6 +37,7 @@ public class PageService {
      * @param queryPageRequest 查询条件
      * @return 页面列表
      */
+    @Override
     public QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest) {
         if (queryPageRequest == null) {
             queryPageRequest = new QueryPageRequest();
@@ -56,6 +62,7 @@ public class PageService {
     }
 
 
+    @Override
     public CmsPageResult addPage(CmsPage cmsPage) {
         CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
         //如果已存在，则抛错
@@ -66,7 +73,7 @@ public class PageService {
         return new CmsPageResult(CommonCode.SUCCESS, save);
     }
 
-
+    @Override
     public CmsPageResult updatePage(CmsPage cmsPage) {
         Optional<CmsPage> byId = cmsPageRepository.findById(cmsPage.getPageId());
         if (!byId.isPresent()) {
