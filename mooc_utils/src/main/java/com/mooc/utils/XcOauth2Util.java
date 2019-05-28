@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * Created by mrt on 2018/5/25.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 public class XcOauth2Util {
 

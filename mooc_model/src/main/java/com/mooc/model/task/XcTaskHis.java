@@ -8,8 +8,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
 /**
- * Created by mrt on 2018/4/4.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @Data
 @ToString

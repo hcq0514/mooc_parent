@@ -9,7 +9,8 @@ import javax.persistence.Column;
 import java.util.Date;
 
 /**
- * Created by mrt on 2018/3/30.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @Data
 @ToString

@@ -3,8 +3,10 @@ package com.mooc.utils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 /**
- * Created by mrt on 2018/5/22.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 public class BCryptUtil {
     public static String encode(String password){

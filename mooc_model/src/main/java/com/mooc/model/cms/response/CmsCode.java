@@ -4,7 +4,8 @@ import com.mooc.common.model.response.ResultCode;
 import lombok.ToString;
 
 /**
- * Created by mrt on 2018/3/5.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @ToString
 public enum CmsCode implements ResultCode {

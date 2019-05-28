@@ -3,8 +3,10 @@ package com.mooc.model.order.request;
 import com.mooc.common.model.request.RequestData;
 import lombok.Data;
 
+
 /**
- * Created by mrt on 2018/3/27.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @Data
 public class weixinPayInformRequest extends RequestData {

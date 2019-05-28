@@ -6,8 +6,10 @@ import com.mooc.model.media.MediaFile;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 /**
- * Created by mrt on 2018/3/31.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @Data
 @NoArgsConstructor

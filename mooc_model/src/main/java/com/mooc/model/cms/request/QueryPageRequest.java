@@ -2,10 +2,12 @@ package com.mooc.model.cms.request;
 
 import com.mooc.common.model.request.RequestData;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
+/**
+ * @author : hcq
+ * @date : 2019/5/28
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class QueryPageRequest extends RequestData {

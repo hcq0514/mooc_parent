@@ -1,7 +1,9 @@
 package com.mooc.utils;
 
+
 /**
- * Created by mrt on 2018/3/27.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 
 /**

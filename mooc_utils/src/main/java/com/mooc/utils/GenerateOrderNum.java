@@ -3,8 +3,10 @@ package com.mooc.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 /**
- * Created by mrt on 2018/3/27.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 public class GenerateOrderNum {
     /**

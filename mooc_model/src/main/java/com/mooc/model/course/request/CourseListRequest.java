@@ -4,8 +4,10 @@ import com.mooc.common.model.request.RequestData;
 import lombok.Data;
 import lombok.ToString;
 
+
 /**
- * Created by mrt on 2018/4/13.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @Data
 @ToString

@@ -6,8 +6,10 @@ import com.mooc.model.cms.CmsPage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+
 /**
- * Created by mrt on 2018/3/31.
+ * @author : hcq
+ * @date : 2019/5/28
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
