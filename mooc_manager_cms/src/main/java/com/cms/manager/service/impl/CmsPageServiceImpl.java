@@ -2,11 +2,13 @@ package com.cms.manager.service.impl;
 
 import com.cms.manager.dao.CmsPageRepository;
 import com.cms.manager.service.CmsPageService;
+import com.mooc.common.exception.ExceptionCast;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.request.QueryPageRequest;
+import com.mooc.model.cms.response.CmsCode;
 import com.mooc.model.cms.response.CmsPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -67,8 +70,9 @@ public class CmsPageServiceImpl implements CmsPageService {
         CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
         //如果已存在，则抛错
         if (cmsPage1 != null) {
-            return new CmsPageResult(CommonCode.FAIL, null);
+            ExceptionCast.cast(CmsCode.CMS_ADD_PAGE_EXIST);
         }
+        cmsPage.setPageCreateTime(new Date());
         CmsPage save = cmsPageRepository.save(cmsPage);
         return new CmsPageResult(CommonCode.SUCCESS, save);
     }

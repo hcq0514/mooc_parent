@@ -35,14 +35,17 @@ public enum PortalViewCode implements ResultCode {
         CACHE = builder.build();
     }
 
+    @Override
     public boolean success() {
         return success;
     }
 
+    @Override
     public int code() {
         return code;
     }
 
+    @Override
     public String message() {
         return message;
     }
