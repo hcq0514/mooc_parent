@@ -2,12 +2,14 @@ package com.mooc.model.order.request;
 
 import com.mooc.common.model.request.RequestData;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 /**
  * @author : hcq
  * @date : 2019/5/28
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class weixinPayInformRequest extends RequestData {
 

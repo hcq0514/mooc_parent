@@ -1,6 +1,7 @@
 package com.mooc.model.ucenter.ext;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -8,6 +9,7 @@ import lombok.ToString;
  * @author : hcq
  * @date : 2019/5/28
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 @NoArgsConstructor

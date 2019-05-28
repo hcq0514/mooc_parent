@@ -3,6 +3,7 @@ package com.mooc.model.ucenter.response;
 import com.mooc.common.model.response.ResponseResult;
 import com.mooc.common.model.response.ResultCode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import lombok.ToString;
  * @author : hcq
  * @date : 2019/5/28
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 @NoArgsConstructor

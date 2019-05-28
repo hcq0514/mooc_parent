@@ -4,6 +4,7 @@ import com.mooc.common.model.response.ResponseResult;
 import com.mooc.common.model.response.ResultCode;
 import com.mooc.model.order.XcOrders;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 
@@ -11,6 +12,7 @@ import lombok.ToString;
  * @author : hcq
  * @date : 2019/5/28
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 public class OrderResult extends ResponseResult {
