@@ -25,13 +25,13 @@ public class CmsPageController implements CmsPageControllerApi {
 
     @Override
     @PostMapping("/add")
-    public CmsPageResult addPage(@RequestBody CmsPage cmsPage) {
+    public CmsPageResult add(@RequestBody CmsPage cmsPage) {
         return cmsPageServiceImpl.addPage(cmsPage);
     }
 
     @Override
     @PutMapping("/update")
-    public CmsPageResult updatePage(@RequestBody CmsPage cmsPage) {
+    public CmsPageResult update(@RequestBody CmsPage cmsPage) {
         return cmsPageServiceImpl.updatePage(cmsPage);
     }
 

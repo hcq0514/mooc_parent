@@ -16,10 +16,10 @@ public interface CmsSiteControllerApi {
     QueryResponseResult findAll();
 
     @ApiOperation("新增站点")
-    CmsResult addSite(CmsSite CmsSite);
+    CmsResult add(CmsSite CmsSite);
 
     @ApiOperation("修改页面")
-    CmsResult<CmsSite> updateSite(CmsSite CmsSite);
+    CmsResult<CmsSite> update(CmsSite CmsSite);
 
 }
 

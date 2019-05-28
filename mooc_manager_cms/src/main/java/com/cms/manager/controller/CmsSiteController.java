@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author : hcq
  * @date : 2019/5/28
+ * 0
  */
 @RestController
 @RequestMapping("cmsSite")
@@ -32,14 +33,14 @@ public class CmsSiteController implements CmsSiteControllerApi {
 
     @Override
     @PostMapping("/add")
-    public CmsResult<CmsSite> addSite(@RequestBody  CmsSite CmsSite) {
-        return cmsSiteService.addSite(CmsSite);
+    public CmsResult<CmsSite> add(@RequestBody CmsSite cmsSite) {
+        return cmsSiteService.addSite(cmsSite);
     }
 
     @Override
     @PutMapping("/update")
-    public CmsResult<CmsSite> updateSite(@RequestBody CmsSite CmsSite) {
-        return cmsSiteService.updateSite(CmsSite);
+    public CmsResult<CmsSite> update(@RequestBody CmsSite cmsSite) {
+        return cmsSiteService.updateSite(cmsSite);
     }
 }
 
