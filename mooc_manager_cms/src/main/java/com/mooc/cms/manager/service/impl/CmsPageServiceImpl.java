@@ -64,6 +64,13 @@ public class CmsPageServiceImpl implements CmsPageService {
         return new QueryResponseResult(CommonCode.SUCCESS, cmsPageQueryResult);
     }
 
+    @Override
+    public CmsPageResult getById(String id) {
+        Optional<CmsPage> optional = cmsPageRepository.findById(id);
+        return optional.map(cmsPage1 -> new CmsPageResult(CommonCode.SUCCESS, cmsPage1))
+                .orElseGet(() -> new CmsPageResult(CommonCode.SUCCESS, null));
+    }
+
 
     @Override
     public CmsPageResult addPage(CmsPage cmsPage) {

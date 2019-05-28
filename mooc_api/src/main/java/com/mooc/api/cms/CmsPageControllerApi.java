@@ -23,6 +23,9 @@ public interface CmsPageControllerApi {
     })
     QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest);
 
+    @ApiOperation("查询页面")
+    CmsPageResult getById(String pageId);
+
     @ApiOperation("新增页面")
     CmsPageResult add(CmsPage cmsPage);
 
