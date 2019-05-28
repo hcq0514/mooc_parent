@@ -81,10 +81,20 @@ public class CmsPageServiceImpl implements CmsPageService {
     public CmsPageResult updatePage(CmsPage cmsPage) {
         Optional<CmsPage> byId = cmsPageRepository.findById(cmsPage.getPageId());
         if (!byId.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_PAGE_UPDATE_NOT_EXIST);
+            ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
         }
         CmsPage update = cmsPageRepository.save(cmsPage);
         return new CmsPageResult(CommonCode.SUCCESS, update);
+    }
+
+    @Override
+    public CmsPageResult delete(String pageId) {
+        Optional<CmsPage> cmsPage = cmsPageRepository.findById(pageId);
+        if (!cmsPage.isPresent()) {
+            ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
+        }
+        cmsPageRepository.deleteById(pageId);
+        return new CmsPageResult(CommonCode.SUCCESS, null);
     }
 }
 

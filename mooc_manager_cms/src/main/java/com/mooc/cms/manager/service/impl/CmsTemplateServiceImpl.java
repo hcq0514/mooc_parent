@@ -48,7 +48,7 @@ public class CmsTemplateServiceImpl implements CmsTemplateService {
     public CmsResult<CmsTemplate> update(CmsTemplate cmsTemplate) {
         Optional<CmsTemplate> exist = cmsTemplateRepository.findById(cmsTemplate.getTemplateId());
         if (!exist.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_UPDATE_NOT_EXIST);
+            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_NOT_EXIST);
         }
         CmsTemplate update = cmsTemplateRepository.save(cmsTemplate);
         return new CmsResult<>(CommonCode.SUCCESS, update);

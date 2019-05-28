@@ -15,4 +15,6 @@ public interface CmsPageService {
     CmsPageResult addPage(CmsPage cmsPage);
 
     CmsPageResult updatePage(CmsPage cmsPage);
+
+    CmsPageResult delete(String pageId);
 }

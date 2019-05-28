@@ -48,7 +48,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
     public CmsResult<CmsSite> updateSite(CmsSite cmsSite) {
         Optional<CmsSite> byId = cmsSiteRepository.findById(cmsSite.getSiteId());
         if (!byId.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_SITE_UPDATE_NOT_EXIST);
+            ExceptionCast.cast(CmsCode.CMS_SITE_NOT_EXIST);
         }
         CmsSite update = cmsSiteRepository.save(cmsSite);
         return new CmsResult<>(CommonCode.SUCCESS, update);

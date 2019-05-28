@@ -35,5 +35,11 @@ public class CmsPageController implements CmsPageControllerApi {
         return cmsPageServiceImpl.updatePage(cmsPage);
     }
 
+    @Override
+    @DeleteMapping("/delete/{pageId}")
+    public CmsPageResult delete(@PathVariable("pageId") String pageId) {
+        return cmsPageServiceImpl.delete(pageId);
+    }
+
 }
 

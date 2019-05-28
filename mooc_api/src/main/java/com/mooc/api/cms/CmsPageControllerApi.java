@@ -28,5 +28,8 @@ public interface CmsPageControllerApi {
 
     @ApiOperation("修改页面")
     CmsPageResult update(CmsPage cmsPage);
+
+    @ApiOperation("删除页面")
+    CmsPageResult delete(String pageId);
 }
 
