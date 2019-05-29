@@ -18,8 +18,11 @@ public enum CmsCode implements ResultCode {
     CMS_SITE_ADD_ALREADY_EXIST(false, 24011, "站点已存在！"),
     CMS_SITE_NOT_EXIST(false, 24012, "站点不存在！"),
     //cms template 页面异常从24021-24030
-    CMS_TEMPLATE_ADD_ALREADY_EXIST(false, 24011, "模版已存在！"),
-    CMS_TEMPLATE_NOT_EXIST(false, 24012, "模版不存在！");
+    CMS_TEMPLATE_ADD_ALREADY_EXIST(false, 24021, "模版已存在！"),
+    CMS_TEMPLATE_NOT_EXIST(false, 24022, "模版不存在！"),
+    //cms config 页面异常从24031-24040
+    CMS_CONFIG_ADD_ALREADY_EXIST(false, 24031, "配置已存在！"),
+    CMS_CONFIG_NOT_EXIST(false, 24032, "配置不存在！");
 //    CMS_GENERATEHTML_DATAURLISNULL(false, 24002, "从页面信息中找不到获取数据的url！"),
 //    CMS_GENERATEHTML_DATAISNULL(false, 24003, "根据页面的数据url获取不到数据！"),
 //    CMS_GENERATEHTML_TEMPLATEISNULL(false, 24004, "页面模板为空！"),

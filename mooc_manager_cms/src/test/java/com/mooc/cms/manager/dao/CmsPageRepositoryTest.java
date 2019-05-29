@@ -1,14 +1,26 @@
 package com.mooc.cms.manager.dao;
 
+import com.mongodb.client.gridfs.GridFSBucket;
+import com.mongodb.client.gridfs.GridFSBuckets;
+import com.mongodb.client.gridfs.GridFSDownloadStream;
+import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsPageParam;
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import sun.misc.IOUtils;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +32,13 @@ public class CmsPageRepositoryTest {
 
     @Autowired
     CmsPageRepository cmsPageRepository;
+
+    @Autowired
+    GridFsTemplate gridFsTemplate;
+
+    @Autowired
+    GridFSBucket gridFSBucket;
+
 
     @Test
     public void testFindPage() {
@@ -87,6 +106,36 @@ public class CmsPageRepositoryTest {
         Page<CmsPage> all = cmsPageRepository.findAll(example, pageable);
         System.out.println(all);
     }
+
+    @Test
+    public void testGridFs() throws FileNotFoundException {
+//要存储的文件
+        File file = new File("d:/index_banner.html");
+//定义输入流
+        FileInputStream inputStram = new FileInputStream(file);
+//向GridFS存储文件
+        ObjectId objectId = gridFsTemplate.store(inputStram, "轮播图测试文件01", "");
+//得到文件ID
+        String fileId = objectId.toString();
+        System.out.println(file);
+    }
+
+    @Test
+    public void queryFile() throws IOException {
+        String fileId = "5cee32d8fe4a8950244416e8";
+//根据id查询文件
+        GridFSFile gridFSFile =
+                gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(fileId)));
+//打开下载流对象
+        if (gridFSFile!=null){
+            // mongo-java-driver3.x以上的版本就变成了这种方式获取
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            // 获取Mongodb中文件的缓存输出流
+            gridFSBucket.downloadToStream(gridFSFile.getId(), baos);
+            System.out.println(baos.toString());
+        }
+    }
+
 
 
 }

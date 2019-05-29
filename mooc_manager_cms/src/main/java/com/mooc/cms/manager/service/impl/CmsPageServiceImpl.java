@@ -1,12 +1,16 @@
 package com.mooc.cms.manager.service.impl;
 
 import com.mooc.cms.manager.dao.CmsPageRepository;
+import com.mooc.cms.manager.dao.CmsTemplateRepository;
+import com.mooc.cms.manager.service.CmsConfigService;
 import com.mooc.cms.manager.service.CmsPageService;
 import com.mooc.common.exception.ExceptionCast;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
+import com.mooc.model.cms.CmsConfigModel;
 import com.mooc.model.cms.CmsPage;
+import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.request.QueryPageRequest;
 import com.mooc.model.cms.response.CmsCode;
 import com.mooc.model.cms.response.CmsPageResult;
@@ -18,6 +22,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,6 +33,11 @@ import java.util.Optional;
 public class CmsPageServiceImpl implements CmsPageService {
     @Autowired
     CmsPageRepository cmsPageRepository;
+
+    @Autowired
+    CmsConfigService cmsConfigService;
+    @Autowired
+    CmsTemplateRepository cmsTemplateRepository;
 
     @Autowired
     MongoTemplate mongoTemplate;
@@ -86,8 +96,8 @@ public class CmsPageServiceImpl implements CmsPageService {
 
     @Override
     public CmsPageResult updatePage(CmsPage cmsPage) {
-        Optional<CmsPage> byId = cmsPageRepository.findById(cmsPage.getPageId());
-        if (!byId.isPresent()) {
+        Optional<CmsPage> optionCmsPage = cmsPageRepository.findById(cmsPage.getPageId());
+        if (!optionCmsPage.isPresent()) {
             ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
         }
         CmsPage update = cmsPageRepository.save(cmsPage);
@@ -102,6 +112,36 @@ public class CmsPageServiceImpl implements CmsPageService {
         }
         cmsPageRepository.deleteById(pageId);
         return new CmsPageResult(CommonCode.SUCCESS, null);
+    }
+
+    /** 轮播图模版预览
+     *1. 获取模版数据
+     *  1.1 从cms_config表里取到轮播图的请求地址，写入到cms_page的dataUrl里面
+     *  1.2 根据page_id取得dataUrl
+     *2. 获取模版页面
+     *  2.1 首先制作一个模版存入到cms_template页面里，模版页面存储到GridFS里面，并保存GridFS的id到template里
+     *  2.2 根据page_id取得模版页面
+     * 3. 利用thymleaf模版静态化生成页面
+     */
+    @Override
+    public CmsPageResult previewPage(String pageId) {
+        Optional<CmsPage> optional = cmsPageRepository.findById(pageId);
+        if (!optional.isPresent()){
+            ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
+        }
+        CmsPage cmsPage = optional.get();
+        List<CmsConfigModel> models = cmsConfigService.getModelById(cmsPage.getDataUrl());
+        //获取模版页面
+        Optional<CmsTemplate> optionalCmsTemplate = cmsTemplateRepository.findById(cmsPage.getTemplateId());
+        if (!optionalCmsTemplate.isPresent()){
+            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_NOT_EXIST);
+        }
+        CmsTemplate cmsTemplate = optionalCmsTemplate.get();
+        //根据id查找模版
+        cmsTemplate.getTemplateFileId();
+        //静态化生成
+
+        return null;
     }
 }
 
