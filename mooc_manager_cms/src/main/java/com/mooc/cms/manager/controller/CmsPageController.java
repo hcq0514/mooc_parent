@@ -4,15 +4,17 @@ import com.mooc.api.cms.CmsPageControllerApi;
 import com.mooc.cms.manager.service.CmsConfigService;
 import com.mooc.cms.manager.service.CmsPageService;
 import com.mooc.common.model.response.QueryResponseResult;
-import com.mooc.model.cms.CmsConfigModel;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.request.QueryPageRequest;
 import com.mooc.model.cms.response.CmsPageResult;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("cmsPage")
@@ -55,12 +57,18 @@ public class CmsPageController implements CmsPageControllerApi {
         return cmsPageService.delete(pageId);
     }
 
-    @GetMapping
-    public ModelAndView testTh(ModelAndView modelAndView) {
-        List<CmsConfigModel> models = cmsConfigService.getModelById("5a791725dd573c3574ee333f");
-        modelAndView.setViewName("index_banner");
-        modelAndView.addObject("models", models);
-        return modelAndView;
+    @Override
+    @GetMapping("preview/{pageId}")
+    public void previewPage(@PathVariable("pageId") String pageId, HttpServletResponse response) {
+        String pageHtml = cmsPageService.previewPage(pageId);
+        if(StringUtils.isNotEmpty(pageHtml)){
+            try {
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(pageHtml.getBytes(StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

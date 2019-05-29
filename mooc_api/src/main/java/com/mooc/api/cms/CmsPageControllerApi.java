@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author : hcq
@@ -18,8 +19,8 @@ import io.swagger.annotations.ApiOperation;
 public interface CmsPageControllerApi {
     @ApiOperation("分页查询页面列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码", required = true, example = "0",paramType = "path", dataType = "int" ),
-            @ApiImplicitParam(name = "size", value = "每页记录数", required = true,example = "10",paramType = "path", dataType = "int")
+            @ApiImplicitParam(name = "page", value = "页码", required = true, example = "0", paramType = "path", dataType = "int"),
+            @ApiImplicitParam(name = "size", value = "每页记录数", required = true, example = "10", paramType = "path", dataType = "int")
     })
     QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest);
 
@@ -34,5 +35,8 @@ public interface CmsPageControllerApi {
 
     @ApiOperation("删除页面")
     CmsPageResult delete(String pageId);
+
+    @ApiOperation("预览页面")
+    void previewPage(String pageId, HttpServletResponse response);
 }
 

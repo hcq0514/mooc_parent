@@ -20,6 +20,7 @@ public enum CmsCode implements ResultCode {
     //cms template 页面异常从24021-24030
     CMS_TEMPLATE_ADD_ALREADY_EXIST(false, 24021, "模版已存在！"),
     CMS_TEMPLATE_NOT_EXIST(false, 24022, "模版不存在！"),
+    CMS_TEMPLATE_FILE_NOT_EXIST(false, 24023, "模版文件不存在！"),
     //cms config 页面异常从24031-24040
     CMS_CONFIG_ADD_ALREADY_EXIST(false, 24031, "配置已存在！"),
     CMS_CONFIG_NOT_EXIST(false, 24032, "配置不存在！");

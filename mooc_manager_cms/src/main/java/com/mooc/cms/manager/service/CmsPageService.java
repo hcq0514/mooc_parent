@@ -20,5 +20,5 @@ public interface CmsPageService {
 
     CmsPageResult delete(String pageId);
 
-    CmsPageResult previewPage(String pageId);
+    String previewPage(String pageId);
 }

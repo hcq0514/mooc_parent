@@ -1,8 +1,6 @@
 package com.mooc.cms.manager.dao;
 
 import com.mongodb.client.gridfs.GridFSBucket;
-import com.mongodb.client.gridfs.GridFSBuckets;
-import com.mongodb.client.gridfs.GridFSDownloadStream;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsPageParam;
@@ -12,13 +10,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
-import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.misc.IOUtils;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -38,6 +35,9 @@ public class CmsPageRepositoryTest {
 
     @Autowired
     GridFSBucket gridFSBucket;
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
 
     @Test
@@ -134,6 +134,13 @@ public class CmsPageRepositoryTest {
             gridFSBucket.downloadToStream(gridFSFile.getId(), baos);
             System.out.println(baos.toString());
         }
+    }
+
+
+    public void genHtmlPage() {
+        Context context = new Context();
+        context.setVariable("name", "列表数据");
+        templateEngine.process("",context);
     }
 
 

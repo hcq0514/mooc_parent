@@ -1,5 +1,7 @@
 package com.mooc.cms.manager.service.impl;
 
+import com.mongodb.client.gridfs.GridFSBucket;
+import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mooc.cms.manager.dao.CmsPageRepository;
 import com.mooc.cms.manager.dao.CmsTemplateRepository;
 import com.mooc.cms.manager.service.CmsConfigService;
@@ -19,8 +21,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +49,15 @@ public class CmsPageServiceImpl implements CmsPageService {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
+    @Autowired
+    GridFsTemplate gridFsTemplate;
+
+    @Autowired
+    GridFSBucket gridFSBucket;
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
     /**
      * 页面列表分页查询
@@ -114,34 +131,47 @@ public class CmsPageServiceImpl implements CmsPageService {
         return new CmsPageResult(CommonCode.SUCCESS, null);
     }
 
-    /** 轮播图模版预览
-     *1. 获取模版数据
-     *  1.1 从cms_config表里取到轮播图的请求地址，写入到cms_page的dataUrl里面
-     *  1.2 根据page_id取得dataUrl
-     *2. 获取模版页面
-     *  2.1 首先制作一个模版存入到cms_template页面里，模版页面存储到GridFS里面，并保存GridFS的id到template里
-     *  2.2 根据page_id取得模版页面
+    /**
+     * 轮播图模版预览
+     * 1. 获取模版数据
+     * 1.1 从cms_config表里取到轮播图的请求地址，写入到cms_page的dataUrl里面
+     * 1.2 根据page_id取得dataUrl
+     * 2. 获取模版页面
+     * 2.1 首先制作一个模版存入到cms_template页面里，模版页面存储到GridFS里面，并保存GridFS的id到template里
+     * 2.2 根据page_id取得模版页面
      * 3. 利用thymleaf模版静态化生成页面
+     * todo 现在只有轮播图可以使用预览页面，后期换成freemark或者重新寻求解决方案
      */
     @Override
-    public CmsPageResult previewPage(String pageId) {
+    public String previewPage(String pageId) {
         Optional<CmsPage> optional = cmsPageRepository.findById(pageId);
-        if (!optional.isPresent()){
+        if (!optional.isPresent()) {
             ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
         }
         CmsPage cmsPage = optional.get();
         List<CmsConfigModel> models = cmsConfigService.getModelById(cmsPage.getDataUrl());
         //获取模版页面
         Optional<CmsTemplate> optionalCmsTemplate = cmsTemplateRepository.findById(cmsPage.getTemplateId());
-        if (!optionalCmsTemplate.isPresent()){
+        if (!optionalCmsTemplate.isPresent()) {
             ExceptionCast.cast(CmsCode.CMS_TEMPLATE_NOT_EXIST);
         }
         CmsTemplate cmsTemplate = optionalCmsTemplate.get();
-        //根据id查找模版
-        cmsTemplate.getTemplateFileId();
+        //根据id查询文件
+        GridFSFile gridFSFile =
+                gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(cmsTemplate.getTemplateFileId())));
+        //打开下载流对象
+        if (gridFSFile == null) {
+            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_FILE_NOT_EXIST);
+        }
+        // mongo-java-driver3.x以上的版本就变成了这种方式获取
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        // 获取Mongodb中文件的缓存输出流
+        gridFSBucket.downloadToStream(gridFSFile.getId(), byteArrayOutputStream);
+        String template = byteArrayOutputStream.toString();
         //静态化生成
-
-        return null;
+        Context context = new Context();
+        context.setVariable("models", models);
+        return templateEngine.process("index_banner.html", context);
     }
 }
 
