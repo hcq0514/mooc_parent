@@ -28,9 +28,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author : hcq
@@ -55,8 +53,10 @@ public class CmsPageServiceImpl implements CmsPageService {
     @Autowired
     GridFSBucket gridFSBucket;
 
-    @Autowired
-    private TemplateEngine templateEngine;
+    /**
+     * 这个地方不能用autowire注入 会导致静态化时只读模版而不能使用字符串，不知道为什么
+     */
+    private final static TemplateEngine templateEngine = new TemplateEngine();
 
     /**
      * 页面列表分页查询
@@ -179,8 +179,10 @@ public class CmsPageServiceImpl implements CmsPageService {
         String template = byteArrayOutputStream.toString();
         //静态化生成
         Context context = new Context();
-        context.setVariable("models", models);
-        return templateEngine.process("index_banner.html", context);
+        Map map = new HashMap();
+        map.put("models", models);
+        context.setVariables(map);
+        return templateEngine.process(template, context);
     }
 }
 

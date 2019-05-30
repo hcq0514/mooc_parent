@@ -18,10 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -36,9 +33,8 @@ public class CmsPageRepositoryTest {
     @Autowired
     GridFSBucket gridFSBucket;
 
-    @Autowired
-    private TemplateEngine templateEngine;
 
+    private final static TemplateEngine templateEngine = new TemplateEngine();
 
     @Test
     public void testFindPage() {
@@ -80,7 +76,7 @@ public class CmsPageRepositoryTest {
     @Test
     public void testJpa() {
         Pageable pageable = PageRequest.of(1, 1);
-        Page<CmsPage> byPageAliase = cmsPageRepository.findByPageAliaseLikeAndSiteId("课","5a751fab6abb5044e0d19ea1", pageable);
+        Page<CmsPage> byPageAliase = cmsPageRepository.findByPageAliaseLikeAndSiteId("课", "5a751fab6abb5044e0d19ea1", pageable);
         System.out.println(byPageAliase);
     }
 
@@ -102,7 +98,7 @@ public class CmsPageRepositoryTest {
 //        cmsPage.setPageAliase("分类导航");
 //创建条件实例
         Example<CmsPage> example = Example.of(cmsPage, exampleMatcher);
-        Pageable pageable =  PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(0, 10);
         Page<CmsPage> all = cmsPageRepository.findAll(example, pageable);
         System.out.println(all);
     }
@@ -127,7 +123,7 @@ public class CmsPageRepositoryTest {
         GridFSFile gridFSFile =
                 gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(fileId)));
 //打开下载流对象
-        if (gridFSFile!=null){
+        if (gridFSFile != null) {
             // mongo-java-driver3.x以上的版本就变成了这种方式获取
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             // 获取Mongodb中文件的缓存输出流
@@ -137,12 +133,17 @@ public class CmsPageRepositoryTest {
     }
 
 
+    @Test
     public void genHtmlPage() {
+        String template = "<p th:text='${title}'></p>";
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("title", "hello world");
         Context context = new Context();
-        context.setVariable("name", "列表数据");
-        templateEngine.process("",context);
-    }
+        context.setVariables(map);
+        String process = templateEngine.process(template, context);
 
+        System.out.println("渲染之后的字符串是:" + process);
+    }
 
 
 }
