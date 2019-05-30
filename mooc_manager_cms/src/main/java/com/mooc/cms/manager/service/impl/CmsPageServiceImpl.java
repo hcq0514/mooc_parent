@@ -16,10 +16,9 @@ import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.request.QueryPageRequest;
 import com.mooc.model.cms.response.CmsCode;
 import com.mooc.model.cms.response.CmsPageResult;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -69,25 +68,35 @@ public class CmsPageServiceImpl implements CmsPageService {
      */
     @Override
     public QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest) {
-        if (queryPageRequest == null) {
-            queryPageRequest = new QueryPageRequest();
+        //条件匹配器
+        //页面名称模糊查询，需要自定义字符串的匹配器实现模糊查询
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                .withMatcher("pageAliase", ExampleMatcher.GenericPropertyMatchers.contains());
+        CmsPage cmsPage = new CmsPage();
+        //站点ID
+        if (StringUtils.isNotEmpty(queryPageRequest.getPageId())) {
+            cmsPage.setPageId(queryPageRequest.getPageId());
         }
-        if (page <= 0) {
-            page = 1;
+        //站点ID
+        if (StringUtils.isNotEmpty(queryPageRequest.getSiteId())) {
+            cmsPage.setSiteId(queryPageRequest.getSiteId());
         }
-        //为了适应mongodb的接口将页码减1
+        //页面别名
+        if (StringUtils.isNotEmpty(queryPageRequest.getPageAliase())) {
+            cmsPage.setPageAliase(queryPageRequest.getPageAliase());
+        }
+        //创建条件实例
+        Example<CmsPage> example = Example.of(cmsPage, exampleMatcher);
+        //页码
         page = page - 1;
-        if (size <= 0) {
-            size = 20;
-        }
-//分页对象
+        //分页对象
         Pageable pageable = PageRequest.of(page, size);
-//分页查询
-        Page<CmsPage> all = cmsPageRepository.findAll(pageable);
+        //分页查询
+        Page<CmsPage> all = cmsPageRepository.findAll(example, pageable);
         QueryResult<CmsPage> cmsPageQueryResult = new QueryResult<>();
         cmsPageQueryResult.setList(all.getContent());
         cmsPageQueryResult.setTotal(all.getTotalElements());
-//返回结果
+        //返回结果
         return new QueryResponseResult(CommonCode.SUCCESS, cmsPageQueryResult);
     }
 
