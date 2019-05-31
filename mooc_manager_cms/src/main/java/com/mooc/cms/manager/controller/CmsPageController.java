@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("cmsPage")
 public class CmsPageController implements CmsPageControllerApi {
 
     @Autowired
@@ -26,38 +25,38 @@ public class CmsPageController implements CmsPageControllerApi {
     @Autowired
     CmsConfigService cmsConfigService;
 
-    @Override
+//    @Override
     @GetMapping("/list/{page}/{size}")
     public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size")
             int size, QueryPageRequest queryPageRequest) {
         return cmsPageService.findList(page, size, queryPageRequest);
     }
 
-    @Override
+//    @Override
     @GetMapping("/get/{id}")
-    public CmsPageResult getById(@PathVariable("id") String id) {
+    public CmsPage getById(@PathVariable("id") String id) {
         return cmsPageService.getById(id);
     }
 
-    @Override
+//    @Override
     @PostMapping("/add")
     public CmsPageResult add(@RequestBody CmsPage cmsPage) {
         return cmsPageService.addPage(cmsPage);
     }
 
-    @Override
+//    @Override
     @PutMapping("/update")
     public CmsPageResult update(@RequestBody CmsPage cmsPage) {
         return cmsPageService.updatePage(cmsPage);
     }
 
-    @Override
+//    @Override
     @DeleteMapping("/delete/{pageId}")
     public CmsPageResult delete(@PathVariable("pageId") String pageId) {
         return cmsPageService.delete(pageId);
     }
 
-    @Override
+//    @Override
     @GetMapping("preview/{pageId}")
     public void previewPage(@PathVariable("pageId") String pageId, HttpServletResponse response) {
         String pageHtml = cmsPageService.previewPage(pageId);

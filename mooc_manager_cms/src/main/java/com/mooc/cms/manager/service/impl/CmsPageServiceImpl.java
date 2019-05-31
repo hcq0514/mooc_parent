@@ -111,10 +111,13 @@ public class CmsPageServiceImpl implements CmsPageService {
     }
 
     @Override
-    public CmsPageResult getById(String id) {
+    public CmsPage getById(String id) {
         Optional<CmsPage> optional = cmsPageRepository.findById(id);
-        return optional.map(cmsPage1 -> new CmsPageResult(CommonCode.SUCCESS, cmsPage1))
-                .orElseGet(() -> new CmsPageResult(CommonCode.SUCCESS, null));
+        boolean present = optional.isPresent();
+        if (present) {
+            return optional.get();
+        }
+        return null;
     }
 
 
@@ -195,7 +198,7 @@ public class CmsPageServiceImpl implements CmsPageService {
         return pageHtml;
     }
 
-    public CmsResult publishPage(String pageId){
+    public CmsResult publishPage(String pageId) {
         //获取页面模版
         String pageHtml = this.previewPage(pageId);
         //存储模版到grid
@@ -206,11 +209,11 @@ public class CmsPageServiceImpl implements CmsPageService {
         cmsPage.setPageHtml(String.valueOf(objectId));
         //发送mq
 
-        Map<String,String> map = new HashMap<>(1);
-        map.put("pageId",pageId);
+        Map<String, String> map = new HashMap<>(1);
+        map.put("pageId", pageId);
         rabbitTemplate.convertAndSend(RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_EXCHANGE, RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_ROUTING_KEY, map);
         //todo 写个redis到时候回调看是否成功
-        return new CmsResult<>(CommonCode.SUCCESS,cmsPage);
+        return new CmsResult<>(CommonCode.SUCCESS, cmsPage);
     }
 }
 

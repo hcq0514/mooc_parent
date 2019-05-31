@@ -12,7 +12,7 @@ import com.mooc.model.cms.response.CmsPageResult;
 public interface CmsPageService {
     QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest);
 
-    CmsPageResult getById(String pageId);
+    CmsPage getById(String pageId);
 
     CmsPageResult addPage(CmsPage cmsPage);
 
