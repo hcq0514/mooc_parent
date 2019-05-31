@@ -18,6 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @SpringBootTest
@@ -108,12 +109,21 @@ public class CmsPageRepositoryTest {
 //要存储的文件
         File file = new File("d:/index_banner.html");
 //定义输入流
-        FileInputStream inputStram = new FileInputStream(file);
+        FileInputStream fileInputStream = new FileInputStream(file);
 //向GridFS存储文件
-        ObjectId objectId = gridFsTemplate.store(inputStram, "轮播图测试文件01", "");
+        ObjectId objectId = gridFsTemplate.store(fileInputStream, "轮播图测试文件01", "");
 //得到文件ID
         String fileId = objectId.toString();
         System.out.println(file);
+    }
+
+    @Test
+    public void testIO() throws Exception {
+        String text = "hello world";
+        InputStream fileInputStream = new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8));
+        ObjectId objectId = gridFsTemplate.store(fileInputStream, "上传测试文件02", "");
+        System.out.println(objectId);
+
     }
 
     @Test

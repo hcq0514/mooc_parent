@@ -1,8 +1,8 @@
 server:
-  port: 6060
+  port: 6010
 spring:
   application:
-    name: mooc-manager-cms-service
+    name: mooc-mq-consume-service
   data:
     mongodb:
       uri: mongodb://47.100.97.46:27017

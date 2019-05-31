@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-cloud-eureka
+    name: mooc-eureka
 server:
   port: 6000
 eureka:

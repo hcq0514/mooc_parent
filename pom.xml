@@ -21,6 +21,7 @@
         <module>mooc_manager_cms</module>
         <module>mooc_eureka</module>
         <module>mooc_gateway</module>
+        <module>mooc_mq_consume</module>
     </modules>
 
     <!--版本控制-->

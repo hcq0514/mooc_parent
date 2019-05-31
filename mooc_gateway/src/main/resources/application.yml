@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-cloud-gateway
+    name: mooc-gateway
   cloud:
     gateway:
       routes:

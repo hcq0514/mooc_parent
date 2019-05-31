@@ -10,13 +10,17 @@ import com.mooc.common.exception.ExceptionCast;
 import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
+import com.mooc.common.mq.RabbitMQCode;
 import com.mooc.model.cms.CmsConfigModel;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.request.QueryPageRequest;
 import com.mooc.model.cms.response.CmsCode;
 import com.mooc.model.cms.response.CmsPageResult;
+import com.mooc.model.cms.response.CmsResult;
 import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -27,7 +31,10 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -52,6 +59,9 @@ public class CmsPageServiceImpl implements CmsPageService {
 
     @Autowired
     GridFSBucket gridFSBucket;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     /**
      * 这个地方不能用autowire注入 会导致静态化时只读模版而不能使用字符串，不知道为什么
@@ -149,7 +159,6 @@ public class CmsPageServiceImpl implements CmsPageService {
      * 2.1 首先制作一个模版存入到cms_template页面里，模版页面存储到GridFS里面，并保存GridFS的id到template里
      * 2.2 根据page_id取得模版页面
      * 3. 利用thymleaf模版静态化生成页面
-     * todo 现在只有轮播图可以使用预览页面，后期换成freemark或者重新寻求解决方案
      */
     @Override
     public String previewPage(String pageId) {
@@ -182,7 +191,26 @@ public class CmsPageServiceImpl implements CmsPageService {
         Map map = new HashMap();
         map.put("models", models);
         context.setVariables(map);
-        return templateEngine.process(template, context);
+        String pageHtml = templateEngine.process(template, context);
+        return pageHtml;
+    }
+
+    public CmsResult publishPage(String pageId){
+        //获取页面模版
+        String pageHtml = this.previewPage(pageId);
+        //存储模版到grid
+        InputStream fileInputStream = new ByteArrayInputStream(pageHtml.getBytes(StandardCharsets.UTF_8));
+        ObjectId objectId = gridFsTemplate.store(fileInputStream, "上传测试文件02", "");
+        //写入模版id到cmspage里
+        CmsPage cmsPage = cmsPageRepository.findById(pageId).get();
+        cmsPage.setPageHtml(String.valueOf(objectId));
+        //发送mq
+
+        Map<String,String> map = new HashMap<>(1);
+        map.put("pageId",pageId);
+        rabbitTemplate.convertAndSend(RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_EXCHANGE, RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_ROUTING_KEY, map);
+        //todo 写个redis到时候回调看是否成功
+        return new CmsResult<>(CommonCode.SUCCESS,cmsPage);
     }
 }
 
