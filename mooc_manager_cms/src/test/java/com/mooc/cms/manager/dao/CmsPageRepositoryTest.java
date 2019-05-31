@@ -2,11 +2,13 @@ package com.mooc.cms.manager.dao;
 
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.model.GridFSFile;
+import com.mooc.common.mq.RabbitMQCode;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsPageParam;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
@@ -33,6 +35,9 @@ public class CmsPageRepositoryTest {
 
     @Autowired
     GridFSBucket gridFSBucket;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
 
     private final static TemplateEngine templateEngine = new TemplateEngine();
@@ -153,6 +158,14 @@ public class CmsPageRepositoryTest {
         String process = templateEngine.process(template, context);
 
         System.out.println("渲染之后的字符串是:" + process);
+    }
+
+    @Test
+    public void testMq() {
+        Map map = new HashMap();
+        map.put("pageId","15");
+        rabbitTemplate.convertAndSend(RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_EXCHANGE, RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_ROUTING_KEY, map);
+
     }
 
 
