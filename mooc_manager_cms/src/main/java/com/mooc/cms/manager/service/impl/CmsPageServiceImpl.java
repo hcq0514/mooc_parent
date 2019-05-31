@@ -206,7 +206,7 @@ public class CmsPageServiceImpl implements CmsPageService {
         ObjectId objectId = gridFsTemplate.store(fileInputStream, "上传测试文件02", "");
         //写入模版id到cmspage里
         CmsPage cmsPage = cmsPageRepository.findById(pageId).get();
-        cmsPage.setPageHtml(String.valueOf(objectId));
+        cmsPage.setHtmlFileId(String.valueOf(objectId));
         //发送mq
 
         Map<String, String> map = new HashMap<>(1);

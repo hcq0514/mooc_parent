@@ -21,6 +21,12 @@ public class CmsSiteController implements CmsSiteControllerApi {
     CmsSiteService cmsSiteService;
 
     @Override
+    @GetMapping("/get/{id}")
+    public CmsSite getById(@PathVariable("id") String id) {
+        return cmsSiteService.getById(id);
+    }
+
+    @Override
     @GetMapping("/all")
     public QueryResponseResult findAll() {
         return cmsSiteService.findAll();

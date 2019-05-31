@@ -54,5 +54,15 @@ public class CmsSiteServiceImpl implements CmsSiteService {
         return new CmsResult<>(CommonCode.SUCCESS, update);
     }
 
+    @Override
+    public CmsSite getById(String id) {
+        Optional<CmsSite> optional = cmsSiteRepository.findById(id);
+        boolean present = optional.isPresent();
+        if (present) {
+            return optional.get();
+        }
+        return null;
+    }
+
 }
 

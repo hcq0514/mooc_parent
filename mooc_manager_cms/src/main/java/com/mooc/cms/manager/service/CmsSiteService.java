@@ -20,4 +20,6 @@ public interface CmsSiteService {
     CmsResult<CmsSite> addSite(CmsSite cmsSite);
 
     CmsResult<CmsSite> updateSite(CmsSite cmsSite);
+
+    CmsSite getById(String id);
 }
