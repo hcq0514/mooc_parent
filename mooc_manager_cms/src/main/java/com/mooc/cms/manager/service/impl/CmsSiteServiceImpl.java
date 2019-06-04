@@ -8,7 +8,7 @@ import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
 import com.mooc.model.cms.CmsSite;
 import com.mooc.model.cms.response.CmsCode;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,24 +34,24 @@ public class CmsSiteServiceImpl implements CmsSiteService {
     }
 
     @Override
-    public CmsResult<CmsSite> addSite(CmsSite cmsSite) {
+    public CommonResult<CmsSite> addSite(CmsSite cmsSite) {
         CmsSite cmsSite1 = cmsSiteRepository.findBySiteNameAndSiteDomainAndSitePortAndSiteWebPath(cmsSite.getSiteName(),cmsSite.getSiteDomain(),cmsSite.getSitePort(),cmsSite.getSiteWebPath());
         //如果已存在，则抛错
         if (cmsSite1 != null) {
             ExceptionCast.cast(CmsCode.CMS_SITE_ADD_ALREADY_EXIST);
         }
         CmsSite save = cmsSiteRepository.save(cmsSite);
-        return new CmsResult<>(CommonCode.SUCCESS, save);
+        return new CommonResult<>(CommonCode.SUCCESS, save);
     }
 
     @Override
-    public CmsResult<CmsSite> updateSite(CmsSite cmsSite) {
+    public CommonResult<CmsSite> updateSite(CmsSite cmsSite) {
         Optional<CmsSite> byId = cmsSiteRepository.findById(cmsSite.getSiteId());
         if (!byId.isPresent()) {
             ExceptionCast.cast(CmsCode.CMS_SITE_NOT_EXIST);
         }
         CmsSite update = cmsSiteRepository.save(cmsSite);
-        return new CmsResult<>(CommonCode.SUCCESS, update);
+        return new CommonResult<>(CommonCode.SUCCESS, update);
     }
 
     @Override

@@ -1,9 +1,8 @@
 package com.mooc.api.cms;
 
 import com.mooc.common.model.response.QueryResponseResult;
-import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsSite;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +26,11 @@ public interface CmsSiteControllerApi {
 
     @ApiOperation("新增站点")
     @PostMapping("/add")
-    CmsResult add(CmsSite CmsSite);
+    CommonResult add(CmsSite CmsSite);
 
     @ApiOperation("修改页面")
     @PutMapping("/update")
-    CmsResult<CmsSite> update(CmsSite CmsSite);
+    CommonResult<CmsSite> update(CmsSite CmsSite);
 
 }
 

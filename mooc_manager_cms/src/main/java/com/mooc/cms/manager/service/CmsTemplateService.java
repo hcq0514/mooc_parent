@@ -2,7 +2,7 @@ package com.mooc.cms.manager.service;
 
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsTemplate;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 
 /**
  * @author : hcq
@@ -15,7 +15,7 @@ public interface CmsTemplateService {
      */
      QueryResponseResult findAll();
 
-    CmsResult<CmsTemplate> add(CmsTemplate cmsTemplate);
+    CommonResult<CmsTemplate> add(CmsTemplate cmsTemplate);
 
-    CmsResult<CmsTemplate> update(CmsTemplate cmsTemplate);
+    CommonResult<CmsTemplate> update(CmsTemplate cmsTemplate);
 }

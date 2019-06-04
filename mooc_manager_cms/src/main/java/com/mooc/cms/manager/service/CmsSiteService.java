@@ -1,10 +1,8 @@
 package com.mooc.cms.manager.service;
 
 import com.mooc.common.model.response.QueryResponseResult;
-import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsSite;
-import com.mooc.model.cms.response.CmsPageResult;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 
 /**
  * @author : hcq
@@ -17,9 +15,9 @@ public interface CmsSiteService {
      */
      QueryResponseResult findAll();
 
-    CmsResult<CmsSite> addSite(CmsSite cmsSite);
+    CommonResult<CmsSite> addSite(CmsSite cmsSite);
 
-    CmsResult<CmsSite> updateSite(CmsSite cmsSite);
+    CommonResult<CmsSite> updateSite(CmsSite cmsSite);
 
     CmsSite getById(String id);
 }

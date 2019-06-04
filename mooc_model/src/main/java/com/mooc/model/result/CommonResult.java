@@ -1,4 +1,4 @@
-package com.mooc.model.cms.response;
+package com.mooc.model.result;
 
 import com.mooc.common.model.response.ResponseResult;
 import com.mooc.common.model.response.ResultCode;
@@ -13,9 +13,9 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CmsResult<T> extends ResponseResult {
+public class CommonResult<T> extends ResponseResult {
     T t;
-    public CmsResult(ResultCode resultCode, T t) {
+    public CommonResult(ResultCode resultCode, T t) {
         super(resultCode);
         this.t = t;
     }

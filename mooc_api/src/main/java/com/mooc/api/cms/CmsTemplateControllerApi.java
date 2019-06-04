@@ -1,9 +1,8 @@
 package com.mooc.api.cms;
 
 import com.mooc.common.model.response.QueryResponseResult;
-import com.mooc.model.cms.CmsSite;
 import com.mooc.model.cms.CmsTemplate;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -17,10 +16,10 @@ public interface CmsTemplateControllerApi {
     QueryResponseResult findAll();
 
     @ApiOperation("新增模版")
-    CmsResult<CmsTemplate> add(CmsTemplate cmsTemplate);
+    CommonResult<CmsTemplate> add(CmsTemplate cmsTemplate);
 
     @ApiOperation("修改模版")
-    CmsResult<CmsTemplate> update(CmsTemplate cmsTemplate);
+    CommonResult<CmsTemplate> update(CmsTemplate cmsTemplate);
 
 }
 

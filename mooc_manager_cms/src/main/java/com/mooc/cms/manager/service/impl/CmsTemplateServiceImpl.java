@@ -8,7 +8,7 @@ import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
 import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.response.CmsCode;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,24 +34,24 @@ public class CmsTemplateServiceImpl implements CmsTemplateService {
     }
 
     @Override
-    public CmsResult<CmsTemplate> add(CmsTemplate cmsTemplate) {
+    public CommonResult<CmsTemplate> add(CmsTemplate cmsTemplate) {
         CmsTemplate exist = cmsTemplateRepository.findBySiteIdAndTemplateName(cmsTemplate.getSiteId(), cmsTemplate.getTemplateName());
         //如果已存在，则抛错
         if (exist != null) {
             ExceptionCast.cast(CmsCode.CMS_TEMPLATE_ADD_ALREADY_EXIST);
         }
         CmsTemplate save = cmsTemplateRepository.save(cmsTemplate);
-        return new CmsResult<>(CommonCode.SUCCESS, save);
+        return new CommonResult<>(CommonCode.SUCCESS, save);
     }
 
     @Override
-    public CmsResult<CmsTemplate> update(CmsTemplate cmsTemplate) {
+    public CommonResult<CmsTemplate> update(CmsTemplate cmsTemplate) {
         Optional<CmsTemplate> exist = cmsTemplateRepository.findById(cmsTemplate.getTemplateId());
         if (!exist.isPresent()) {
             ExceptionCast.cast(CmsCode.CMS_TEMPLATE_NOT_EXIST);
         }
         CmsTemplate update = cmsTemplateRepository.save(cmsTemplate);
-        return new CmsResult<>(CommonCode.SUCCESS, update);
+        return new CommonResult<>(CommonCode.SUCCESS, update);
     }
 
 }

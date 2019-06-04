@@ -17,7 +17,7 @@ import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.request.QueryPageRequest;
 import com.mooc.model.cms.response.CmsCode;
 import com.mooc.model.cms.response.CmsPageResult;
-import com.mooc.model.cms.response.CmsResult;
+import com.mooc.model.result.CommonResult;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -198,7 +198,7 @@ public class CmsPageServiceImpl implements CmsPageService {
         return pageHtml;
     }
 
-    public CmsResult publishPage(String pageId) {
+    public CommonResult publishPage(String pageId) {
         //获取页面模版
         String pageHtml = this.previewPage(pageId);
         //存储模版到grid
@@ -213,7 +213,7 @@ public class CmsPageServiceImpl implements CmsPageService {
         map.put("pageId", pageId);
         rabbitTemplate.convertAndSend(RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_EXCHANGE, RabbitMQCode.MANAGER_CMS_PUBLISH_PAGE_ROUTING_KEY, map);
         //todo 写个redis到时候回调看是否成功
-        return new CmsResult<>(CommonCode.SUCCESS, cmsPage);
+        return new CommonResult<>(CommonCode.SUCCESS, cmsPage);
     }
 }
 
