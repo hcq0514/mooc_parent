@@ -1,10 +1,10 @@
 package com.mooc.model.course;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -12,15 +12,10 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-@Entity
-@Table(name="category")
-@GenericGenerator(name = "jpa-assigned", strategy = "assigned")
-//@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+@TableName("category")
 public class Category implements Serializable {
     private static final long serialVersionUID = -906357110051689484L;
-    @Id
-    @GeneratedValue(generator = "jpa-assigned")
-    @Column(length = 32)
+    @TableId
     private String id;
     private String name;
     private String label;

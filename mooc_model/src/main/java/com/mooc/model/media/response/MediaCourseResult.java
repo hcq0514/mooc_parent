@@ -5,11 +5,13 @@ import com.mooc.common.model.response.ResultCode;
 import com.mooc.model.media.MediaFile;
 import com.mooc.model.media.MediaVideoCourse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 /**
  * Created by admin on 2018/3/5.
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 @NoArgsConstructor
