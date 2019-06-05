@@ -1,5 +1,8 @@
 package com.mooc.course.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mooc.course.service.CourseBaseService;
 import com.mooc.model.course.CourseBase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,13 @@ public class CourseBaseController {
     @Autowired
     CourseBaseService courseBaseService;
 
+    @GetMapping("/myCourse/{page}/{size}/{userId}")
+    public IPage<CourseBase> findList(@PathVariable("page") int page, @PathVariable("size") int size, @PathVariable("userId") String userId) {
+        CourseBase courseBase = new CourseBase();
+        courseBase.setUserId(userId);
+        IPage<CourseBase> page1 = courseBaseService.page(new Page<>(page, size),new QueryWrapper<>(courseBase));
+        return page1;
+    }
 
     @GetMapping("/get/{id}")
     public CourseBase getById(@PathVariable("id") String id) {
