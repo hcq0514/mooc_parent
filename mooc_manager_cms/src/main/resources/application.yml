@@ -2,17 +2,11 @@ server:
   port: 6060
 spring:
   application:
-    name: mooc-manager-cms-service
+    name: manager-cms-service
   data:
     mongodb:
       uri: mongodb://47.100.97.46:27017
       database: mooc
-  rabbitmq:
-    host: 47.100.97.46
-    username: admin
-    password: admin
-    port: 5672
-    virtual-host: my_vhost
 eureka:
   client:
     service-url:
