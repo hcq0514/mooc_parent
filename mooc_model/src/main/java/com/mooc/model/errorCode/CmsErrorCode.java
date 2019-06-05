@@ -1,7 +1,6 @@
-package com.mooc.model.cms.response;
+package com.mooc.model.errorCode;
 
 import com.mooc.common.model.response.ResultCode;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.ToString;
 
@@ -10,7 +9,7 @@ import lombok.ToString;
  * @date : 2019/5/28
  */
 @ToString
-public enum CmsCode implements ResultCode {
+public enum CmsErrorCode implements ResultCode {
     //cms page 页面异常从24001-24010
     CMS_PAGE_ADD_ALREADY_EXIST(false, 24001, "页面已存在！"),
     CMS_PAGE_NOT_EXIST(false, 24002, "页面不存在！"),
@@ -24,6 +23,7 @@ public enum CmsCode implements ResultCode {
     //cms config 页面异常从24031-24040
     CMS_CONFIG_ADD_ALREADY_EXIST(false, 24031, "配置已存在！"),
     CMS_CONFIG_NOT_EXIST(false, 24032, "配置不存在！");
+
 //    CMS_GENERATEHTML_DATAURLISNULL(false, 24002, "从页面信息中找不到获取数据的url！"),
 //    CMS_GENERATEHTML_DATAISNULL(false, 24003, "根据页面的数据url获取不到数据！"),
 //    CMS_GENERATEHTML_TEMPLATEISNULL(false, 24004, "页面模板为空！"),
@@ -38,7 +38,7 @@ public enum CmsCode implements ResultCode {
     @ApiParam("提示信息")
     String message;
 
-    CmsCode(boolean success, int code, String message) {
+    CmsErrorCode(boolean success, int code, String message) {
         this.success = success;
         this.code = code;
         this.message = message;

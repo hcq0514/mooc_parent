@@ -15,7 +15,7 @@ import com.mooc.model.cms.CmsConfigModel;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsTemplate;
 import com.mooc.model.cms.request.QueryPageRequest;
-import com.mooc.model.cms.response.CmsCode;
+import com.mooc.model.errorCode.CmsErrorCode;
 import com.mooc.model.cms.response.CmsPageResult;
 import com.mooc.model.result.CommonResult;
 import org.apache.commons.lang.StringUtils;
@@ -126,7 +126,7 @@ public class CmsPageServiceImpl implements CmsPageService {
         CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
         //如果已存在，则抛错
         if (cmsPage1 != null) {
-            ExceptionCast.cast(CmsCode.CMS_PAGE_ADD_ALREADY_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_PAGE_ADD_ALREADY_EXIST);
         }
         cmsPage.setPageCreateTime(new Date());
         CmsPage save = cmsPageRepository.save(cmsPage);
@@ -137,7 +137,7 @@ public class CmsPageServiceImpl implements CmsPageService {
     public CmsPageResult updatePage(CmsPage cmsPage) {
         Optional<CmsPage> optionCmsPage = cmsPageRepository.findById(cmsPage.getPageId());
         if (!optionCmsPage.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_PAGE_NOT_EXIST);
         }
         CmsPage update = cmsPageRepository.save(cmsPage);
         return new CmsPageResult(CommonCode.SUCCESS, update);
@@ -147,7 +147,7 @@ public class CmsPageServiceImpl implements CmsPageService {
     public CmsPageResult delete(String pageId) {
         Optional<CmsPage> cmsPage = cmsPageRepository.findById(pageId);
         if (!cmsPage.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_PAGE_NOT_EXIST);
         }
         cmsPageRepository.deleteById(pageId);
         return new CmsPageResult(CommonCode.SUCCESS, null);
@@ -167,14 +167,14 @@ public class CmsPageServiceImpl implements CmsPageService {
     public String previewPage(String pageId) {
         Optional<CmsPage> optional = cmsPageRepository.findById(pageId);
         if (!optional.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_PAGE_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_PAGE_NOT_EXIST);
         }
         CmsPage cmsPage = optional.get();
         List<CmsConfigModel> models = cmsConfigService.getModelById(cmsPage.getDataUrl());
         //获取模版页面
         Optional<CmsTemplate> optionalCmsTemplate = cmsTemplateRepository.findById(cmsPage.getTemplateId());
         if (!optionalCmsTemplate.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_TEMPLATE_NOT_EXIST);
         }
         CmsTemplate cmsTemplate = optionalCmsTemplate.get();
         //根据id查询文件
@@ -182,7 +182,7 @@ public class CmsPageServiceImpl implements CmsPageService {
                 gridFsTemplate.findOne(Query.query(Criteria.where("_id").is(cmsTemplate.getTemplateFileId())));
         //打开下载流对象
         if (gridFSFile == null) {
-            ExceptionCast.cast(CmsCode.CMS_TEMPLATE_FILE_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_TEMPLATE_FILE_NOT_EXIST);
         }
         // mongo-java-driver3.x以上的版本就变成了这种方式获取
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

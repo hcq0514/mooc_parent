@@ -19,8 +19,7 @@ public class CourseBaseController {
     public IPage<CourseBase> findList(@PathVariable("page") int page, @PathVariable("size") int size, @PathVariable("userId") String userId) {
         CourseBase courseBase = new CourseBase();
         courseBase.setUserId(userId);
-        IPage<CourseBase> page1 = courseBaseService.page(new Page<>(page, size),new QueryWrapper<>(courseBase));
-        return page1;
+        return courseBaseService.page(new Page<>(page, size),new QueryWrapper<>(courseBase));
     }
 
     @GetMapping("/get/{id}")

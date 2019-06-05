@@ -5,7 +5,7 @@ import com.mooc.cms.manager.service.CmsConfigService;
 import com.mooc.common.exception.ExceptionCast;
 import com.mooc.model.cms.CmsConfig;
 import com.mooc.model.cms.CmsConfigModel;
-import com.mooc.model.cms.response.CmsCode;
+import com.mooc.model.errorCode.CmsErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class CmsConfigServiceImpl implements CmsConfigService {
     public List<CmsConfigModel> getModelById(String id) {
         CmsConfig cmsConfig = this.getById(id);
         if (cmsConfig == null) {
-            ExceptionCast.cast(CmsCode.CMS_CONFIG_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_CONFIG_NOT_EXIST);
         }
         return cmsConfig.getModel();
     }

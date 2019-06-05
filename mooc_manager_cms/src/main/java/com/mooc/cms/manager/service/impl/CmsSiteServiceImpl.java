@@ -7,7 +7,7 @@ import com.mooc.common.model.response.CommonCode;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.common.model.response.QueryResult;
 import com.mooc.model.cms.CmsSite;
-import com.mooc.model.cms.response.CmsCode;
+import com.mooc.model.errorCode.CmsErrorCode;
 import com.mooc.model.result.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
         CmsSite cmsSite1 = cmsSiteRepository.findBySiteNameAndSiteDomainAndSitePortAndSiteWebPath(cmsSite.getSiteName(),cmsSite.getSiteDomain(),cmsSite.getSitePort(),cmsSite.getSiteWebPath());
         //如果已存在，则抛错
         if (cmsSite1 != null) {
-            ExceptionCast.cast(CmsCode.CMS_SITE_ADD_ALREADY_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_SITE_ADD_ALREADY_EXIST);
         }
         CmsSite save = cmsSiteRepository.save(cmsSite);
         return new CommonResult<>(CommonCode.SUCCESS, save);
@@ -48,7 +48,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
     public CommonResult<CmsSite> updateSite(CmsSite cmsSite) {
         Optional<CmsSite> byId = cmsSiteRepository.findById(cmsSite.getSiteId());
         if (!byId.isPresent()) {
-            ExceptionCast.cast(CmsCode.CMS_SITE_NOT_EXIST);
+            ExceptionCast.cast(CmsErrorCode.CMS_SITE_NOT_EXIST);
         }
         CmsSite update = cmsSiteRepository.save(cmsSite);
         return new CommonResult<>(CommonCode.SUCCESS, update);
