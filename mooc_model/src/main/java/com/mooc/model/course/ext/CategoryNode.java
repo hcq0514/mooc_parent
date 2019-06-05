@@ -15,6 +15,6 @@ import java.util.List;
 @ToString
 public class CategoryNode extends Category {
 
-    List<CategoryNode> children;
+    List<Category> children;
 
 }

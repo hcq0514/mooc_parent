@@ -2,8 +2,10 @@ package com.mooc.course.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mooc.model.course.Category;
-import com.mooc.model.course.CourseBase;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @author : hcq
@@ -12,4 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CourseCategoryDao extends BaseMapper<Category> {
+
+    @Select("select *  from course_category where parentid  = #{id} ")
+    List<Category> selectChildren(String id);
 }
