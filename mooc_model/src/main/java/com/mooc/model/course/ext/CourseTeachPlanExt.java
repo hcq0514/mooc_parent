@@ -1,6 +1,6 @@
 package com.mooc.model.course.ext;
 
-import com.mooc.model.course.Teachplan;
+import com.mooc.model.course.CourseTeachPlan;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
-public class TeachplanExt extends Teachplan {
+public class CourseTeachPlanExt extends CourseTeachPlan {
 
     //媒资文件id
     private String mediaId;

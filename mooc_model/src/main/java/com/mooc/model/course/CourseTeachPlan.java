@@ -1,5 +1,6 @@
 package com.mooc.model.course;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -12,10 +13,10 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-@TableName("teachplan")
-public class Teachplan implements Serializable {
+@TableName("course_teachplan")
+public class CourseTeachPlan implements Serializable {
     private static final long serialVersionUID = -916357110051689485L;
-    @TableId
+    @TableId(type = IdType.UUID)
     private String id;
     private String pname;
     private String parentid;

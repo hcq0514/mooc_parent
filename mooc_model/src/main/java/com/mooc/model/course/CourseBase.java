@@ -8,6 +8,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
+import static com.baomidou.mybatisplus.annotation.IdType.UUID;
 
 /**
  * Created by admin on 2018/2/10.
@@ -17,7 +18,7 @@ import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
 @TableName("course_base")
 public class CourseBase implements Serializable {
     private static final long serialVersionUID = -916357110051689486L;
-    @TableId(type = AUTO)
+    @TableId(type = UUID)
     private String id;
     private String name;
     private String users;

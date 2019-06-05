@@ -1,8 +1,7 @@
 package com.mooc.course.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mooc.model.course.CoursePub;
-import com.mooc.model.course.Teachplan;
+import com.mooc.model.course.TeachplanMedia;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 
 @Mapper
-public interface TeachPlanDao extends BaseMapper<Teachplan> {
+public interface CourseTeachPlanMediaDao extends BaseMapper<TeachplanMedia> {
 }

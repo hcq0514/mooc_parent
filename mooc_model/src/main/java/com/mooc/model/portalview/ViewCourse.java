@@ -3,7 +3,7 @@ package com.mooc.model.portalview;
 import com.mooc.model.course.CourseBase;
 import com.mooc.model.course.CourseMarket;
 import com.mooc.model.course.CoursePic;
-import com.mooc.model.course.ext.TeachplanNode;
+import com.mooc.model.course.ext.CourseTeachPlanNode;
 import com.mooc.model.report.ReportCourse;
 import lombok.Data;
 import lombok.ToString;
@@ -25,7 +25,7 @@ public class ViewCourse implements Serializable{
     private CourseBase courseBase;
     private CourseMarket courseMarket;
     private CoursePic coursePic;
-    private TeachplanNode teachplan;
+    private CourseTeachPlanNode teachplan;
     //课程统计信息
     private ReportCourse reportCourse;
 
