@@ -5,16 +5,17 @@ spring:
     gateway:
       routes:
       - id: manager-cms-service
-        #lb代表从注册中心获取服务
         uri: lb://MANAGER-CMS-SERVICE
         predicates:
         - Path=/api/cms/**
-        # 去掉/api/item/前缀
         filters:
         - StripPrefix=2
-#      globalcors:
-#        cors-configurations:
-#          '[/**]':
+      - id: course-service
+        uri: lb://COURSE-SERVICE
+        predicates:
+        - Path=/api/course/**
+        filters:
+        - StripPrefix=1
 server:
   port: 6001
 eureka:
