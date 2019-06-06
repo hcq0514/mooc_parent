@@ -1,10 +1,9 @@
 package com.mooc.course.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.course.service.CourseBaseService;
 import com.mooc.model.course.CourseBase;
+import com.mooc.model.result.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +15,11 @@ public class CourseBaseController {
     CourseBaseService courseBaseService;
 
     @GetMapping("/myCourse/{page}/{size}/{userId}")
-    public IPage<CourseBase> findList(@PathVariable("page") int page, @PathVariable("size") int size, @PathVariable("userId") String userId) {
+    public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size") int size, @PathVariable("userId") String userId) {
         CourseBase courseBase = new CourseBase();
         courseBase.setUserId(userId);
-        return courseBaseService.page(new Page<>(page, size),new QueryWrapper<>(courseBase));
+        QueryResponseResult list = courseBaseService.findList(page, size, null);
+        return list;
     }
 
     @GetMapping("/get/{id}")
@@ -28,18 +28,18 @@ public class CourseBaseController {
     }
 
     @PostMapping("/add")
-    public boolean add(@RequestBody CourseBase coursebase) {
-        return courseBaseService.save(coursebase);
+    public CommonResult add(@RequestBody CourseBase coursebase) {
+        return courseBaseService.add(coursebase);
     }
 
     @PutMapping("/update")
-    public boolean update(@RequestBody CourseBase courseBase) {
-        return courseBaseService.saveOrUpdate(courseBase);
+    public CommonResult update(@RequestBody CourseBase courseBase) {
+        return courseBaseService.update(courseBase);
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable("id") String id) {
-        return courseBaseService.removeById(id);
+    public CommonResult delete(@PathVariable("id") String id) {
+        return courseBaseService.deleteById(id);
     }
 
 }

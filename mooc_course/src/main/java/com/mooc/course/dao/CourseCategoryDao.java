@@ -1,9 +1,7 @@
 package com.mooc.course.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mooc.model.course.Category;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.mooc.model.course.CourseCategory;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -12,9 +10,9 @@ import java.util.List;
  * @date : 2019/6/4
  */
 
-@Mapper
-public interface CourseCategoryDao extends BaseMapper<Category> {
+public interface CourseCategoryDao extends JpaRepository<CourseCategory,String> {
 
-    @Select("select *  from course_category where parentid  = #{id} ")
-    List<Category> selectChildren(String id);
+    List<CourseCategory> findByParentid(String id);
+
+
 }

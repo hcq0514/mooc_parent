@@ -2,7 +2,7 @@ package com.mooc.api.cms;
 
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsPage;
-import com.mooc.model.cms.request.QueryPageRequest;
+import com.mooc.model.cms.request.CmsQueryPageRequest;
 import com.mooc.model.cms.response.CmsPageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,7 +26,7 @@ public interface CmsPageControllerApi {
     })
     @GetMapping("/list/{page}/{size}")
     QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size")
-            int size, QueryPageRequest queryPageRequest);
+            int size, CmsQueryPageRequest cmsQueryPageRequest);
 
     @ApiOperation("查询页面")
     @GetMapping("/get/{id}")

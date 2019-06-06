@@ -1,24 +1,23 @@
 package com.mooc.model.course;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
-import static com.baomidou.mybatisplus.annotation.IdType.UUID;
-
-/**
- * Created by admin on 2018/2/10.
- */
 @Data
 @ToString
-@TableName("course_base")
+@Entity
+@Table(name="course_base")
+//@GenericGenerator(name = "jpa-assigned", strategy = "assigned")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CourseBase implements Serializable {
     private static final long serialVersionUID = -916357110051689486L;
-    @TableId(type = UUID)
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
     private String id;
     private String name;
     private String users;
@@ -29,7 +28,9 @@ public class CourseBase implements Serializable {
     private String teachmode;
     private String description;
     private String status;
+    @Column(name="company_id")
     private String companyId;
+    @Column(name="user_id")
     private String userId;
 
 }

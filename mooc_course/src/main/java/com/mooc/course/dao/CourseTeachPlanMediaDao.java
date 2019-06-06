@@ -1,14 +1,14 @@
 package com.mooc.course.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mooc.model.course.TeachplanMedia;
-import org.apache.ibatis.annotations.Mapper;
+import com.mooc.model.course.CourseTeachPlanMedia;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author : hcq
  * @date : 2019/6/4
  */
 
-@Mapper
-public interface CourseTeachPlanMediaDao extends BaseMapper<TeachplanMedia> {
+@Repository
+public interface CourseTeachPlanMediaDao extends JpaRepository<CourseTeachPlanMedia,String> {
 }

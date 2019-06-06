@@ -1,10 +1,10 @@
 package com.mooc.model.ucenter;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,11 +12,14 @@ import java.util.Date;
  */
 @Data
 @ToString
-@TableName("xc_user")
-
+@Entity
+@Table(name="xc_user")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class XcUser {
 
-    @TableId
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
     private String id;
     private String username;
     private String password;
@@ -29,7 +32,9 @@ public class XcUser {
     private String email;
     private String phone;
     private String status;
+    @Column(name="create_time")
     private Date createTime;
+    @Column(name="update_time")
     private Date updateTime;
 
 

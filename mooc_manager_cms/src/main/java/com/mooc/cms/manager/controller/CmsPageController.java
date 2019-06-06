@@ -5,7 +5,7 @@ import com.mooc.cms.manager.service.CmsConfigService;
 import com.mooc.cms.manager.service.CmsPageService;
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsPage;
-import com.mooc.model.cms.request.QueryPageRequest;
+import com.mooc.model.cms.request.CmsQueryPageRequest;
 import com.mooc.model.cms.response.CmsPageResult;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class CmsPageController implements CmsPageControllerApi {
     @Override
     @GetMapping("/list/{page}/{size}")
     public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size")
-            int size, QueryPageRequest queryPageRequest) {
-        return cmsPageService.findList(page, size, queryPageRequest);
+            int size, CmsQueryPageRequest cmsQueryPageRequest) {
+        return cmsPageService.findList(page, size, cmsQueryPageRequest);
     }
 
     @Override

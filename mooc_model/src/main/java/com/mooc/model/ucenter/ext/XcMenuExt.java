@@ -1,6 +1,5 @@
 package com.mooc.model.ucenter.ext;
 
-import com.mooc.model.course.ext.CategoryNode;
 import com.mooc.model.ucenter.XcMenu;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,5 +15,5 @@ import java.util.List;
 @ToString
 public class XcMenuExt extends XcMenu {
 
-    List<CategoryNode> children;
+//    List<CategoryNode> children;
 }

@@ -14,7 +14,7 @@ import com.mooc.common.mq.RabbitMQCode;
 import com.mooc.model.cms.CmsConfigModel;
 import com.mooc.model.cms.CmsPage;
 import com.mooc.model.cms.CmsTemplate;
-import com.mooc.model.cms.request.QueryPageRequest;
+import com.mooc.model.cms.request.CmsQueryPageRequest;
 import com.mooc.model.errorCode.CmsErrorCode;
 import com.mooc.model.cms.response.CmsPageResult;
 import com.mooc.model.result.CommonResult;
@@ -73,27 +73,27 @@ public class CmsPageServiceImpl implements CmsPageService {
      *
      * @param page             当前页码
      * @param size             页面显示个数
-     * @param queryPageRequest 查询条件
+     * @param cmsQueryPageRequest 查询条件
      * @return 页面列表
      */
     @Override
-    public QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest) {
+    public QueryResponseResult findList(int page, int size, CmsQueryPageRequest cmsQueryPageRequest) {
         //条件匹配器
         //页面名称模糊查询，需要自定义字符串的匹配器实现模糊查询
         ExampleMatcher exampleMatcher = ExampleMatcher.matching()
                 .withMatcher("pageAliase", ExampleMatcher.GenericPropertyMatchers.contains());
         CmsPage cmsPage = new CmsPage();
         //站点ID
-        if (StringUtils.isNotEmpty(queryPageRequest.getPageId())) {
-            cmsPage.setPageId(queryPageRequest.getPageId());
+        if (StringUtils.isNotEmpty(cmsQueryPageRequest.getPageId())) {
+            cmsPage.setPageId(cmsQueryPageRequest.getPageId());
         }
         //站点ID
-        if (StringUtils.isNotEmpty(queryPageRequest.getSiteId())) {
-            cmsPage.setSiteId(queryPageRequest.getSiteId());
+        if (StringUtils.isNotEmpty(cmsQueryPageRequest.getSiteId())) {
+            cmsPage.setSiteId(cmsQueryPageRequest.getSiteId());
         }
         //页面别名
-        if (StringUtils.isNotEmpty(queryPageRequest.getPageAliase())) {
-            cmsPage.setPageAliase(queryPageRequest.getPageAliase());
+        if (StringUtils.isNotEmpty(cmsQueryPageRequest.getPageAliase())) {
+            cmsPage.setPageAliase(cmsQueryPageRequest.getPageAliase());
         }
         //创建条件实例
         Example<CmsPage> example = Example.of(cmsPage, exampleMatcher);

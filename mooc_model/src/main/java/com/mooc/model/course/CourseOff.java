@@ -1,10 +1,10 @@
 package com.mooc.model.course;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,10 +13,14 @@ import java.util.Date;
  */
 @Data
 @ToString
-@TableName("course_off")
+@Entity
+@Table(name="course_off")
+@GenericGenerator(name = "jpa-assigned", strategy = "assigned")
 public class CourseOff implements Serializable {
     private static final long serialVersionUID = -916357110051689488L;
-    @TableId
+    @Id
+    @GeneratedValue(generator = "jpa-assigned")
+    @Column(length = 32)
     private String id;
     private String name;
     private String users;
@@ -25,15 +29,15 @@ public class CourseOff implements Serializable {
     private String grade;
     private String studymodel;
     private String description;
-    private String pic;
-    private Date timestamp;
+    private String pic;//图片
+    private Date timestamp;//时间戳
     private String charge;
     private String valid;
     private String qq;
     private Float price;
     private Float price_old;
     private Date expires;
-    private String teachplan;
+    private String teachplan;//课程计划
 
 
 }

@@ -1,10 +1,10 @@
 package com.mooc.model.ucenter;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -12,10 +12,14 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-@TableName("xc_company")
+@Entity
+@Table(name="xc_company")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class XcCompany implements Serializable {
     private static final long serialVersionUID = -916357110051689786L;
-    @TableId
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
     private String id;
     private String name;
     private String logo;

@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class QueryPageRequest extends RequestData {
+public class CmsQueryPageRequest extends RequestData {
     @ApiModelProperty("站点id")
     private String siteId;
     @ApiModelProperty("页面ID")

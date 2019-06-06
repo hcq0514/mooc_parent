@@ -1,22 +1,22 @@
 package com.mooc.model.course;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by admin on 2018/2/7.
- */
 @Data
 @ToString
-@TableName("course_teachplan")
+@Entity
+@Table(name="course_teachplan")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CourseTeachPlan implements Serializable {
     private static final long serialVersionUID = -916357110051689485L;
-    @TableId(type = IdType.UUID)
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
     private String id;
     private String pname;
     private String parentid;

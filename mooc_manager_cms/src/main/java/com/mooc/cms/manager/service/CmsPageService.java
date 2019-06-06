@@ -2,7 +2,7 @@ package com.mooc.cms.manager.service;
 
 import com.mooc.common.model.response.QueryResponseResult;
 import com.mooc.model.cms.CmsPage;
-import com.mooc.model.cms.request.QueryPageRequest;
+import com.mooc.model.cms.request.CmsQueryPageRequest;
 import com.mooc.model.cms.response.CmsPageResult;
 
 /**
@@ -10,7 +10,7 @@ import com.mooc.model.cms.response.CmsPageResult;
  * @date : 2019/5/28
  */
 public interface CmsPageService {
-    QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest);
+    QueryResponseResult findList(int page, int size, CmsQueryPageRequest cmsQueryPageRequest);
 
     CmsPage getById(String pageId);
 

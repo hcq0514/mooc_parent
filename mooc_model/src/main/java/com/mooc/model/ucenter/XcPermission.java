@@ -1,10 +1,10 @@
 package com.mooc.model.ucenter;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,12 +12,20 @@ import java.util.Date;
  */
 @Data
 @ToString
-@TableName("xc_permission")
+@Entity
+@Table(name="xc_permission")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class XcPermission {
-    @TableId
+
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
     private String id;
+    @Column(name="roleId")
     private String role_id;
+    @Column(name="menuId")
     private String menu_id;
+    @Column(name="createTime")
     private Date create_time;
 
 
