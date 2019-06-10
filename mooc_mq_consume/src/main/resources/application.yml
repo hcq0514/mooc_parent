@@ -13,6 +13,8 @@ spring:
     password: admin
     port: 5672
     virtual-host: my_vhost
+  main:
+    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:
