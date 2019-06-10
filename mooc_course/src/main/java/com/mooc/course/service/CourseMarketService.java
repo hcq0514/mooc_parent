@@ -13,7 +13,7 @@ import com.mooc.model.result.CommonResult;
 public interface CourseMarketService {
     QueryResponseResult findList(int page, int size, CmsQueryPageRequest cmsQueryPageRequest);
 
-    CourseBase getById(String id);
+    CourseMarket getById(String id);
 
     CommonResult add(CourseMarket courseMarket);
 
